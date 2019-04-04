@@ -50,7 +50,7 @@ func main() {
 }
 
 func updateIP(ip, zoneID, zoneType, zoneName string, api *cloudflare.API) error {
-	// Set the record to be find.
+	// Set the record to be found.
 	record := cloudflare.DNSRecord{
 		Type: zoneType,
 		Name: zoneName,
@@ -65,6 +65,7 @@ func updateIP(ip, zoneID, zoneType, zoneName string, api *cloudflare.API) error 
 		return nil
 	}
 
+	// Update the record with the public IP and update the DNS record at Cloudflare.
 	record.Content = ip
 	if err := api.UpdateDNSRecord(zoneID, records[0].ID, record); err != nil {
 		return errors.Wrap(err, "update DNS record error")
