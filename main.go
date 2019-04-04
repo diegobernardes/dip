@@ -24,25 +24,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Fetch the DNS zone ID.
-	zoneID := os.Getenv("CF_ZONE_ID")
-	if zoneID == "" {
-		log.Fatal("missing 'CF_ZONE_ID'")
-	}
-
-	// Fetch the DNS zone type.
-	zoneType := os.Getenv("CF_ZONE_TYPE")
-	if zoneType == "" {
-		log.Fatal("missing 'CF_ZONE_TYPE'")
-	}
-
-	// Fetch the DNS zone name.
-	zoneName := os.Getenv("CF_ZONE_NAME")
-	if zoneName == "" {
-		log.Fatal("missing 'CF_ZONE_NAME'")
-	}
-
 	// Update the IP.
+	var (
+		zoneID   = os.Getenv("CF_ZONE_ID")
+		zoneType = os.Getenv("CF_ZONE_TYPE")
+		zoneName = os.Getenv("CF_ZONE_NAME")
+	)
 	if err := updateIP(ip, zoneID, zoneType, zoneName, api); err != nil {
 		err = errors.Wrap(err, "updateIP error")
 		log.Fatal(err)
