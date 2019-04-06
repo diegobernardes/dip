@@ -59,6 +59,7 @@ func updateIP(ip, zoneID, zoneType, zoneName string, api *cloudflare.API) error 
 
 	// Set the new IP at the record and send the change to Cloudflare.
 	record.Content = ip
+	record.Proxiable = true
 	if err := api.UpdateDNSRecord(zoneID, records[0].ID, record); err != nil {
 		return errors.Wrap(err, "update DNS record error")
 	}
